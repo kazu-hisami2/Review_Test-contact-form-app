@@ -1,40 +1,36 @@
 ```mermaid
 erDiagram
-    categories ||--o{ contacts : "has"
-    contacts ||--o{ contact_tag : "has"
-    tags ||--o{ contact_tag : "belongs to"
+    categories ||--o{ contacts : "1つのカテゴリーは<br>複数の問い合わせを持つ"
+    contacts ||--o{ contact_tag : "1件の問い合わせは<br>複数のタグを持つ"
+    tags ||--o{ contact_tag : "1つのタグは<br>複数の問い合わせを持つ"
 
     categories {
         bigint id PK
         string name
-        timestamp created_at
-        timestamp updated_at
     }
 
     contacts {
         bigint id PK
-        unsignedBigInteger category_id FK
-        string name
+        bigint category_id FK
+        string first_name
+        string last_name
+        tinyint gender "1:Male, 2:Female, 3:Other"
         string email
-        unsignedTinyInteger gender "1:Male, 2:Female, 3:Other"
-        text content
-        timestamp created_at
-        timestamp updated_at
+        string(11) tel
+        string address
+        string building "nullable"
+        string(120) detail
     }
 
     tags {
         bigint id PK
         string name UK
-        timestamp created_at
-        timestamp updated_at
     }
 
     contact_tag {
         bigint id PK
-        unsignedBigInteger contact_id FK
-        unsignedBigInteger tag_id FK
-        timestamp created_at
-        timestamp updated_at
+        bigint contact_id FK
+        bigint tag_id FK
     }
 
     users {
@@ -42,7 +38,5 @@ erDiagram
         string name
         string email UK
         string password
-        timestamp created_at
-        timestamp updated_at
     }
 ```
