@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('last_name');
             $table->unsignedTinyInteger('gender');
             $table->string('email');
-            $table->string('tel',11);
+            $table->string('tel', 11);
             $table->string('address');
             $table->string('building')->nullable();
-            $table->string('detail',120);
+            $table->string('detail', 120);
             $table->timestamps();
         });
     }
