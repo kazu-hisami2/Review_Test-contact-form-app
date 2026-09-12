@@ -6,7 +6,7 @@ erDiagram
 
     categories {
         bigint id PK
-        string name
+        string content
     }
 
     contacts {
