@@ -16,10 +16,10 @@ erDiagram
         string last_name
         tinyint gender "1:Male, 2:Female, 3:Other"
         string email
-        string(11) tel
+        string tel "Max:11"
         string address
-        string building "nullable"
-        string(120) detail
+        string building "Nullable"
+        string detail "Max:120"
     }
 
     tags {
