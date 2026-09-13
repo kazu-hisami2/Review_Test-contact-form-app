@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
@@ -11,5 +12,7 @@ Route::get('/thanks', [ContactController::class, 'thanks'])->name('contacts.than
 
 // 管理用画面のルーティング（要認証）
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', fn () => 'お問い合わせ一覧（準備中）')->name('admin.index');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/contacts/{contact}', [AdminController::class, 'show'])->name('admin.show');
+    Route::delete('/admin/contacts/{contact}', [AdminController::class, 'destroy'])->name('admin.delete');
 });

@@ -18,8 +18,8 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
+            'first_name' => fake()->lastName(),
+            'last_name' => fake()->firstName(),
             'gender' => fake()->numberBetween(1, 3),
             'email' => fake()->safeEmail(),
             'tel' => str_replace('-', '', fake()->phoneNumber()),
