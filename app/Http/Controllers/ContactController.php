@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExportContactRequest;
+use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
-use App\Http\Requests\StoreContactRequest;
-use App\Http\Requests\ExportContactRequest;
 use Illuminate\Support\Arr;
 
 class ContactController extends Controller
@@ -52,9 +52,9 @@ class ContactController extends Controller
         $contacts = Contact::with(['category', 'tags'])
             ->search($request)
             ->get();
-    
+
         $csvHeader = [
-            'ID','氏名','性別','メール','電話','住所','建物','カテゴリ','内容','作成日時'
+            'ID', '氏名', '性別', 'メール', '電話', '住所', '建物', 'カテゴリ', '内容', '作成日時',
         ];
         $temps = [];
         array_push($temps, $csvHeader);
@@ -75,7 +75,7 @@ class ContactController extends Controller
             array_push($temps, $temp);
         }
 
-        $filename = 'contacts_' . now()->format('YmdHis') . '.csv';
+        $filename = 'contacts_'.now()->format('YmdHis').'.csv';
 
         $headers = [
             'Content-Type' => 'text/csv',
@@ -85,7 +85,7 @@ class ContactController extends Controller
         $callback = function () use ($temps) {
             $stream = fopen('php://output', 'w');
 
-            fputs($stream, "\xEF\xBB\xBF");
+            fwrite($stream, "\xEF\xBB\xBF");
 
             foreach ($temps as $row) {
                 fputcsv($stream, $row);
