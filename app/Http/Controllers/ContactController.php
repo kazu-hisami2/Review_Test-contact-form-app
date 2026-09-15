@@ -7,7 +7,6 @@ use App\Http\Requests\StoreContactRequest;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Tag;
-use Illuminate\Support\Arr;
 
 class ContactController extends Controller
 {
@@ -33,10 +32,12 @@ class ContactController extends Controller
     {
         $validated = $request->validated();
 
-        $contact = Contact::create(Arr::except($validated, ['tag_ids']));
+        $tagIds = $validated['tag_ids'] ?? [];
 
-        if (! empty($validated['tag_ids'])) {
-            $contact->tags()->sync($validated['tag_ids']);
+        $contact = Contact::create($validated);
+
+        if (! empty($tagIds)) {
+            $contact->tags()->attach($tagIds);
         }
 
         return redirect('/thanks');
