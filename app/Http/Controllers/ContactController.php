@@ -51,6 +51,8 @@ class ContactController extends Controller
     {
         $contacts = Contact::with(['category', 'tags'])
             ->search($request)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
 
         $csvHeader = [

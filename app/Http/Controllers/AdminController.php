@@ -13,6 +13,8 @@ class AdminController extends Controller
     {
         $contacts = Contact::with(['category', 'tags'])
             ->search($request)
+            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->paginate(7)
             ->appends($request->query());
 
