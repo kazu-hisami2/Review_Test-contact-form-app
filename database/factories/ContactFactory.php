@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Contact;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -26,6 +27,7 @@ class ContactFactory extends Factory
             'address' => fake()->address(),
             'building' => fake()->optional()->secondaryAddress(),
             'detail' => fake()->realText(100),
+            'category_id' => Category::factory(),
         ];
     }
 }
