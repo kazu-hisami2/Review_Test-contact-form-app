@@ -254,7 +254,7 @@ sail artisan migrate:fresh --seed
 
 ## 開発環境URL
 
-` http://localhost ` ・・・ ルーティング構築時は入力フォームのページにアクセスされる
+` http://localhost `
 
 ## 作成者
 
