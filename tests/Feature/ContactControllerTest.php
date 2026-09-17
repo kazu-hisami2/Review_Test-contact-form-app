@@ -39,7 +39,7 @@ class ContactControllerTest extends TestCase
         // Act: サンクスページに GET リクエスト
         $response = $this->get('/thanks');
 
-        // Assert: 200 OK で正常表示されること
+        // Assert: 200 OK で正常表示される
         $response->assertStatus(200);
     }
 
@@ -113,19 +113,14 @@ class ContactControllerTest extends TestCase
         // Act: POST リクエストで保存処理を実行
         $response = $this->post('/contacts', $formData);
 
-        // Assert
-        // 1. サンクスページ（/thanks）へリダイレクトされること
+        // Assert: サンクスページへのリダイレクト、contcts テーブルへの保存、リレーションの紐づけを確認
         $response->assertRedirect('/thanks');
-
-        // 2. contacts テーブルにデータが保存されていること
         $this->assertDatabaseHas('contacts', [
             'first_name' => '山田',
             'last_name' => '太郎',
             'email' => 'yamada@example.com',
             'category_id' => $category->id,
         ]);
-
-        // 3. 中間テーブル（contact_tag）に正しく紐付けが保存されていること
         $this->assertDatabaseHas('contact_tag', [
             'tag_id' => $tag->id,
         ]);
@@ -172,7 +167,6 @@ class ContactControllerTest extends TestCase
 
         // Assert
         $response->assertOk();
-
         $csvContent = $response->streamedContent();
         $this->assertStringContainsString('山田', $csvContent);
         $this->assertStringNotContainsString('佐藤', $csvContent);

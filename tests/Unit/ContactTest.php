@@ -63,7 +63,7 @@ class ContactTest extends TestCase
         // Act: invalidDataにrules()メソッドを実行
         $validator = Validator::make($invalidData, $request->rules());
 
-        // Assert: バリデーションが失敗し、category_id カラムにエラーがあること
+        // Assert: バリデーションが失敗し、gender カラムにエラーがある
         $this->assertTrue($validator->fails());
         $this->assertArrayHasKey('gender', $validator->errors()->toArray());
     }
@@ -91,7 +91,7 @@ class ContactTest extends TestCase
         // Act
         $validator = Validator::make($validData, $request->rules());
 
-        // Assert: バリデーションが通過すること
+        // Assert: バリデーションが通過する
         $this->assertTrue($validator->passes());
     }
 
@@ -106,7 +106,7 @@ class ContactTest extends TestCase
             'last_name' => '山田',
             'gender' => 1,
             'email' => 'test@example.com',
-            'tel' => '090123456789', // 12桁（不正値）
+            'tel' => '090123456789',
             'address' => '東京都渋谷区...',
             'category_id' => $category->id,
             'detail' => 'お問い合わせ内容です。',
@@ -118,7 +118,7 @@ class ContactTest extends TestCase
         // Act
         $validator = Validator::make($invalidData, $request->rules());
 
-        // Assert: バリデーションが失敗し、tel キーにエラーが存在すること
+        // Assert: バリデーションが失敗し、tel キーにエラーが存在する
         $this->assertTrue($validator->fails());
         $this->assertArrayHasKey('tel', $validator->errors()->toArray());
     }
@@ -135,7 +135,7 @@ class ContactTest extends TestCase
         // Act: リレーション経由で Category を取得
         $relatedCategory = $contact->category;
 
-        // Assert: 取得したモデルが Category のインスタンスであり、IDと名前が一致すること
+        // Assert: 取得したモデルが Category のインスタンスであり、IDと名前が一致する
         $this->assertInstanceOf(Category::class, $relatedCategory);
         $this->assertEquals($category->id, $relatedCategory->id);
         $this->assertEquals('その他', $relatedCategory->content);
@@ -152,7 +152,7 @@ class ContactTest extends TestCase
         // Act: tags() リレーションに対して sync を実行
         $contact->tags()->sync($tagIds);
 
-        // Assert: データベース（中間テーブル）に正しく紐付けが保存され、リレーションから3件取得できること
+        // Assert: データベース（中間テーブル）に正しく紐付けが保存され、リレーションから3件取得できる
         $this->assertCount(3, $contact->fresh()->tags);
 
         foreach ($tags as $tag) {
@@ -210,7 +210,7 @@ class ContactTest extends TestCase
         // Act: invalidDataにrules()メソッドを実行
         $validator = Validator::make($invalidData, $request->rules());
 
-        // Assert: バリデーションが失敗し、gender カラムにエラーがあること
+        // Assert: バリデーションが失敗し、gender カラムにエラーがある
         $this->assertTrue($validator->fails());
         $this->assertArrayHasKey('gender', $validator->errors()->toArray());
     }
@@ -228,7 +228,7 @@ class ContactTest extends TestCase
         // Act: invalidDataにrules()メソッドを実行
         $validator = Validator::make($invalidData, $request->rules());
 
-        // Assert: バリデーションが失敗し、category_id カラムにエラーがあること
+        // Assert: バリデーションが失敗し、category_id カラムにエラーがある
         $this->assertTrue($validator->fails());
         $this->assertArrayHasKey('category_id', $validator->errors()->toArray());
     }
