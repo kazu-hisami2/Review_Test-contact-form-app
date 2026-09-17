@@ -58,10 +58,8 @@ class AdminControllerTest extends TestCase
         $response = $this->actingAs($admin)
             ->get("/admin?keyword=山田&gender=1&category_id={$category1->id}&date=2026-03-01");
 
-        // Assert
+        // Assert: 対象データのみが画面に存在し、除外データは含まれていないこと
         $response->assertOk();
-
-        // 対象データのみが画面に存在し、除外データは含まれていないこと
         $response->assertSee('山田');
         $response->assertDontSee('佐藤');
     }
@@ -89,10 +87,8 @@ class AdminControllerTest extends TestCase
         $response->assertOk();
         $response->assertViewIs('admin.show');
 
-        // ビューにお問い合わせデータ（$contact）が渡されている
+        // ビューにお問い合わせデータ（$contact）が渡されていることや、画面表示の検証
         $response->assertViewHas('contact');
-
-        // お問い合わせ詳細データおよびリレーション先のカテゴリ名が画面に表示されている
         $response->assertSee('山田 太郎');
         $response->assertSee('test@example.com');
         $response->assertSee('商品に関するお問い合わせ');
