@@ -28,8 +28,8 @@ erDiagram
         string first_name
         string last_name
         tinyint gender "1:Male, 2:Female, 3:Other"
-        string email "email"
-        string tel "regex:10-11"
+        string email
+        string tel "max:11"
         string address
         string building "nullable"
         string detail "max:120"
@@ -49,8 +49,8 @@ erDiagram
     users {
         bigint id PK
         string name
-        string email UK "email"
-        string password "min:8"
+        string email UK
+        string password
     }
 ```
 
