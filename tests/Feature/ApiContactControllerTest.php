@@ -133,7 +133,10 @@ class ApiContactControllerTest extends TestCase
         $response = $this->getJson('/api/v1/contacts/99');
 
         // Assert: 404 Not Found の検証
-        $response->assertStatus(404);
+        $response->assertStatus(404)
+            ->assertJson([
+                'error' => 'お問い合わせが見つかりませんでした。',
+            ]);
     }
 
     /** @test */
@@ -259,7 +262,10 @@ class ApiContactControllerTest extends TestCase
 
         $response = $this->putJson('/api/v1/contacts/99', $updateData);
 
-        $response->assertStatus(404);
+        $response->assertStatus(404)
+            ->assertJson([
+                'error' => 'お問い合わせが見つかりませんでした。',
+            ]);
     }
 
     /** @test */
@@ -302,6 +308,9 @@ class ApiContactControllerTest extends TestCase
     {
         $response = $this->deleteJson('/api/v1/contacts/99');
 
-        $response->assertStatus(404);
+        $response->assertStatus(404)
+            ->assertJson([
+                'error' => 'お問い合わせが見つかりませんでした。',
+            ]);
     }
 }
